@@ -1,0 +1,180 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Form validation in javascript with example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'productos/assets/css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="{% static 'productos/assets/css/main.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'productos/assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'productos/assets/css/bootstrap-theme.css' %}" media="screen" >
+    <link rel="stylesheet" href="{% static 'productos/assets/css/login.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'productos/assets/css/background_styles.css' %}">
+
+    <script type="text/javascript" src="{% static 'productos/http://code.jquery.com/jquery-1.9.1.js' %}"></script>
+    <script type="text/javascript" src="{% static 'productos/assets/js/jquery.validate.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'productos/assets/js/additional-methods.min.js' %}"></script>
+    
+
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $("#smart-form").validate({
+                errorClass: "state-error",
+                validClass: "state-success",
+                errorElement: "em",
+                highlight: function (element, errorClass, validClass) {
+                    $(element).closest('.field').addClass(errorClass).removeClass(validClass);
+                },
+                unhighlight: function (element, errorClass, validClass) {
+                    $(element).closest('.field').removeClass(errorClass).addClass(validClass);
+                },
+                errorPlacement: function (error, element) {
+                    if (element.is(":radio") || element.is(":checkbox")) {
+                        element.closest('.option-group').after(error);
+                    } else {
+                        error.insertAfter(element.parent());
+                    }
+                }
+            });
+        });
+    </script>
+
+</head>
+
+<body class="home">
+	
+	<nav class="navbarr">
+        <div class="brand-title"></div>
+        <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'productos/assets/images/menu.png' %}" alt="Progressus HTML5 template"></a>
+        <a href="#" class="toggle-button">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </a>
+        <div class="navbarr-links col-md-6">
+            <ul>
+                <li class="active"><a href="{% url 'home' %}">INICIO</a></li>
+                            
+                
+                            <li><a class="btn" href="{% url 'servicioMecanico' %}">SERVICIO MECANICO</a></li>
+                            <li><a href="{% url 'contacto' %}">CONTACTO</a></li>
+                            
+                            
+                            {% if user.is_authenticated %}
+                            <li>
+                                <a href="{% url 'logout' %}">CERRAR SESION</a>
+                            </li>
+                            <li>
+                                <a href="#">{{ user.username }}</a>
+                            </li>
+                            
+                              
+                            {% else %}
+                            <li>
+                                <a href="{% url 'login' %}">INICIAR SESION</a>
+                            </li>
+                              
+                            {% endif %}
+                            <li><a class="btn" href="{% url 'registros' %}">INGRESO DE VEHICULOS</a></li>
+              </ul>
+        </div>
+      </nav>
+
+    <div class="smart-wrap">
+        <div class="smart-forms smart-container wrap-2">
+
+            <div class="form-header header-primary">
+            </div><!-- end .form-header section -->
+
+            <form method="post" id="smart-form">
+                <div class="form-body">
+
+                    <div class="frm-row">
+                        <div class="section colm colm6">
+                            <label for="firstname" class="field prepend-icon">
+                                <input type="text" name="firstname" id="firstname" class="gui-input"
+                                       data-rule-required="true"
+                                       data-rule-letterswithbasicpunc="true"
+                                       data-msg-required="First name is required"
+                                       data-msg-letterswithbasicpunc="Please enter letters only"
+                                       placeholder="Nombres...">
+                                <span class="field-icon"><i class="fa fa-user"></i></span>
+                            </label>
+                        </div><!-- end section -->
+
+                        <div class="section colm colm6">
+                            <label for="lastname" class="field prepend-icon">
+                                <input type="text" name="lastname" id="lastname" class="gui-input"
+                                       data-rule-required="true"
+                                       data-rule-letterswithbasicpunc="true"
+                                       data-msg-required="Last name is required"
+                                       data-msg-letterswithbasicpunc="Please enter letters only"
+                                       placeholder="Apellidos...">
+                                <span class="field-icon"><i class="fa fa-user"></i></span>
+                            </label>
+                        </div><!-- end section -->
+                    </div><!-- end .frm-row section -->
+
+                    <div class="section">
+                        <label for="useremail" class="field prepend-icon">
+                            <input type="email" name="useremail" id="useremail" class="gui-input"
+                                   data-rule-required="true"
+                                   data-rule-email="true"
+                                   data-msg-required="Enter email address"
+                                   data-msg-email="Enter a VALID email address"
+                                   placeholder="Nombre de usuario">
+                            <span class="field-icon"><i class="fa fa-envelope"></i></span>
+                        </label>
+                    </div><!-- end section -->
+
+                    <div class="section">
+                        <label for="file1" class="field file">
+                            <span class="button btn-primary"> Choose File </span>
+                            <input type="file" class="gui-file" name="upload1" id="file1" onChange="document.getElementById('uploader1').value = this.value;"
+                                   data-rule-required="true"
+                                   data-msg-required="Please upload a file"
+                                   data-rule-accept="image/jpeg,image/pjpeg,image/png,image/gif,image/bmp,image/tiff"
+                                   data-msg-accept="Only image files allowed"
+                                   data-rule-filesize="10485760"
+                                   data-msg-filesize="Please upload 10MB or less">
+                            <input type="text" class="gui-input" id="uploader1" placeholder="Seleccionar archivo" readonly>
+                        </label>
+                    </div><!-- end  section -->
+
+
+                    <div class="section">
+                        <label for="comment" class="field prepend-icon">
+                            <textarea class="gui-textarea" id="comment" name="comment"
+                                      data-rule-required="true"
+                                      data-msg-required="Please enter your comments"
+                                      placeholder="Comentario">
+                            </textarea>
+                            <span class="field-icon"><i class="fa fa-comments"></i></span>
+                            <span class="input-hint">
+                                <strong>DO NOT:</strong> Be negative or off topic, we expect a great comment...
+                            </span>
+                        </label>
+                    </div><!-- end section -->
+
+                </div><!-- end .form-body section -->
+                <div class="form-footer">
+                    <button type="submit" class="button btn-primary"> ENVIAR </button>
+                    <button type="reset" class="button"> CANCELAR </button>
+                </div><!-- end .form-footer section -->
+            </form>
+
+        </div><!-- end .smart-forms section -->
+    </div><!-- end .smart-wrap section -->
+
+    <div>
+
+    </div><!-- end section -->
+
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>

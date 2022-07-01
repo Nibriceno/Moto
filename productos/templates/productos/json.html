@@ -1,0 +1,89 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="{% static 'productos/assets/css/main.css' %}">
+    <script type="text/javascript"src="http://code.jquery.com/jquery-1.11.1.js"></script>
+   
+    	
+    <link rel="stylesheet" href="{% static 'productos/assets/css/login.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'productos/assets/css/background_styles.css' %}">
+    
+    
+  <head>
+    <nav class="navbarr">
+      <div class="brand-title"></div>
+      <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'productos/assets/images/menu.png' %}" alt="Progressus HTML5 template"></a>
+      <a href="#" class="toggle-button">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </a>
+      <div class="navbarr-links col-md-6">
+        <ul>
+          <li class="active"><a href="{% url 'home' %}">INICIO</a></li>
+                
+          
+                <li><a class="btn" href="{% url 'servicioMecanico' %}">SERVICIO MECANICO</a></li>
+                <li><a href="{% url 'contacto' %}">CONTACTO</a></li>
+                
+                
+                {% if user.is_authenticated %}
+                <li>
+                  <a href="{% url 'logout' %}">CERRAR SESION</a>
+                </li>
+                <li>
+                  <a href="#">{{ user.username }}</a>
+                </li>
+                
+                  
+                {% else %}
+                <li>
+                  <a href="{% url 'login' %}">INICIAR SESION</a>
+                </li>
+                  
+                {% endif %}
+                <li><a class="btn" href="{% url 'registros' %}">INGRESO DE VEHICULOS</a></li>
+          </ul>
+      </div>
+    </nav>
+
+<body>
+    <br><br>
+    <div class="w3-container">
+        <h1>USUARIOS RECIENTES</h1>
+        <br>
+        <button class="w3-btn w3-yellow w3-round" onclick="traer();"
+        >Refrescar Tabla</button>
+        <br><br>
+        <table class="w3-table w3-striped"><thead class="w3-black">
+            <td>Tipo motoquero</td>
+            <td>Nombre</td>
+            <td>Dirección</td>
+            <td>Usuario</td>
+
+        </thead>
+        <tbody id="cuerpoTable">
+
+        </tbody>
+        
+     </table>
+    </div>
+    <br>   
+
+
+    <script type="text/javascript" src="{% static 'productos/assets/js/json.js' %}"></script>
+    
+</body>
+
+
+
+    
+
+</html>

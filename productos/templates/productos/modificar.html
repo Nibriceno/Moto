@@ -1,0 +1,98 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>API Calls Demo</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'productos/assets/css/login.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'productos/assets/css/background_styles.css' %}">
+   <script src="{% static 'productos/assets/js/log.js' %}" defer></script>
+   
+
+</head>
+
+<body data-gr-c-s-loaded="true">
+    <nav class="navbarr">
+        <div class="brand-title"></div>
+        <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'productos/assets/images/menu.png' %}" alt="Progressus HTML5 template"></a>
+        <a href="#" class="toggle-button">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </a>
+        <div class="navbarr-links">
+            <ul>
+                <li class="active"><a href="{% url 'home' %}">INICIO</a></li>
+                            
+                
+                            <li><a class="btn" href="{% url 'servicioMecanico' %}">SERVICIO MECANICO</a></li>
+                            <li><a href="{% url 'contacto' %}">CONTACTO</a></li>
+                            
+                            
+                            {% if user.is_authenticated %}
+                            <li>
+                                <a href="{% url 'logout' %}">CERRAR SESION</a>
+                            </li>
+                            <li>
+                                <a href="#">{{ user.username }}</a>
+                            </li>
+                            
+                              
+                            {% else %}
+                            <li>
+                                <a href="{% url 'login' %}">INICIAR SESION</a>
+                            </li>
+                              
+                            {% endif %}
+                            <li><a class="btn" href="{% url 'registros' %}">INGRESO DE VEHICULOS</a></li>
+              </ul>
+        </div>
+      </nav>
+
+    <div role="main" class="container" style="margin-top: 80px;">
+
+        <div>
+
+            <h2>Modifica el vehiculo</h2><br>
+            <div class="row">
+                <div class="form-inline">
+
+                    <div class="form-group" style="margin-right: 20px;">
+                        <label for="txtPatente">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Patente: &nbsp;</label>
+                        <input type="text" class="form-control" id="txtPatente" style="width: 50px;">
+                    </div>
+                    <div class="form-group" style="margin-right: 20px;">
+                        <label for="txtMarca">marca: &nbsp;</label>
+                        <input type="text" class="form-control" id="txtMarca">
+                    </div>
+                    <div class="form-group" style="margin-right: 20px;">
+                        <label for="txtModelo">modelo: &nbsp;</label>
+                        <input type="text" class="form-control" id="txtModelo">
+                    </div>
+                    <div class="form-group" style="margin-right: 20px;">
+                        <label for="txtCategoria">categoria: &nbsp;</label>
+                        <input type="text" class="form-control" id="txtCategoria">
+                    </div>
+                    <br>
+                    <button id="btnSubmit" type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+            <br><br>
+
+        
+
+
+        </div>
+
+    </div><!-- /.container -->
+ 
+</body>
+<script type="text/javascript" src="{% static 'productos/assets/js/api.js' %}"></script>
+</html>

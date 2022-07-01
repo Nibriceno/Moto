@@ -1,0 +1,141 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport"    content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+
+	
+    <link rel="stylesheet" href="{% static 'productos/assets/css/login.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'productos/assets/css/background_styles.css' %}">
+	<link rel="stylesheet" href="{% static 'productos/assets/css/bootstrap.min.css' %}">
+	<link rel="stylesheet" href="{% static 'productos/assets/css/font-awesome.min.css' %}">
+	<link rel="stylesheet" href="{% static 'productos/assets/css/main.css' %}">
+	<link rel="stylesheet" href="{% static 'productos/assets/css/bootstrap-theme.css' %}" media="screen" >
+
+</head>
+
+<body>
+	<nav class="navbarr">
+		<div class="brand-title"></div>
+		<a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'productos/assets/images/menu.png' %}" alt="Progressus HTML5 template"></a>
+		<a href="#" class="toggle-button">
+		  <span class="bar"></span>
+		  <span class="bar"></span>
+		  <span class="bar"></span>
+		</a>
+		<div class="navbarr-links col-md-6">
+		  <ul>
+			<li class="active"><a href="{% url 'home' %}">INICIO</a></li>
+						
+			
+						<li><a class="btn" href="{% url 'servicioMecanico' %}">SERVICIO MECANICO</a></li>
+						<li><a href="{% url 'contacto' %}">CONTACTO</a></li>
+						
+						
+						{% if user.is_authenticated %}
+						<li>
+							<a href="{% url 'logout' %}">CERRAR SESION</a>
+						</li>
+						<li>
+							<a href="#">{{ user.username }}</a>
+						</li>
+						
+						  
+						{% else %}
+						<li>
+							<a href="{% url 'login' %}">INICIAR SESION</a>
+						</li>
+						  
+						{% endif %}
+						<li><a class="btn" href="{% url 'registros' %}">INGRESO DE VEHICULOS</a></li>
+		  </ul>
+		</div>
+	  </nav>
+	
+<br>
+<br>
+
+<div class="container" >
+<div class="col-12 col-md-12 offset-md-3">
+ <table class="table table-striped ">
+    <tr>
+        <th>Patente</th>
+        <th>Marca</th>
+        <th>Servicio</th>
+        <th>Modelo</th>
+		<th>imagen</th>
+		<th>Modificar</th>
+        <th>Eliminar</th>
+	<h2>LISTA DE VEHICULOS INGRESADOS</h2> <br><br><br>
+    </tr>
+    {% for v in vehiculos %}
+    <tr>
+        <td>{{v.patente}}</td>
+        <td>{{v.marca}}</td>
+        <td>{{v.Servicio}}</td>
+        <td>{{v.modelo}}</td>
+		<td>
+		{% if v.imagen	 %}
+			<img src="{{ v.imagen.url }}" width="50" height="50">
+		
+		{% endif %}
+		
+
+        
+		</td>
+		<td><a href="{% url 'modificar_vehiculo' v.patente%}">Modificar</a></td>
+        <td><a href="{% url 'eliminar_vehiculo' v.patente%}">Eliminar</a></td>
+    </tr>
+    {% endfor %}
+</table>
+<hr>
+<a href="{% url 'agregar_vehiculo' %}">Agregar Moto</a>
+
+</div>
+</div>
+
+<footer id="footer" class="navbar navbar-fixed-bottom">
+
+
+		<div class="footer1">
+			<div class="container">
+				<div class="row">
+					
+					<div class="col-md-6 widget">
+						<h3 class="widget-title">Contacto</h3>
+						<div class="widget-body">
+							<p>+56 9 73756090<br>
+								<br>	
+								<a href="mailto:#">Pasionmotos@gmail.com</a><br>
+								<br>
+								Calle blanco #243 , Quilpue, #2430000
+							</p>	
+						</div>
+					</div>
+	
+					
+	
+					<div class="col-md-6 widget">
+						<h3 class="widget-title">Horario de atención</h3>
+						<div class="widget-body">
+							<p>Sucursal Quilpue </p>
+							<p>Lun. a Vie. de 9:00 a 18:30</p>
+							<p>Sáb. de 9:00 a 14:00	</p>
+						</div>
+					</div>
+	
+				</div> 
+			</div>
+		</div>
+	
+		
+		</div>
+	</footer>
+    
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>
